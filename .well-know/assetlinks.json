@@ -1,8 +1,8 @@
 [{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "online.tanyaaja.twa",
-    "sha256_cert_fingerprints": ["KODE_RAHASIA_ANDA_DI_SINI"]
-  }
-}]
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "online.tanyaaja.twa",
+        "sha256_cert_fingerprints": ["61:C2:B8:6C:10:09:15:6B:D3:36:F9:88:0B:71:C0:49:54:75:2D:8E:4A:5D:5E:D7:9B:A6:63:03:57:CB:3A:74"]
+      }
+    }]
