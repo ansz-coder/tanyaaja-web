@@ -17,7 +17,7 @@ module.exports = async function handler(req, res) {
   });
 
   const options = {
-    hostname: 'generativelanguage.googleapis.com',
+    hostname: '://googleapis.com',
     path: `/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(apiKey.trim())}`,
     method: 'POST',
     headers: {
@@ -49,6 +49,12 @@ module.exports = async function handler(req, res) {
       });
     });
 
+    request.setTimeout(8000, () => {
+      request.destroy();
+      res.status(504).json({ error: 'Server AI terlalu lama merespons, coba ulangi.' });
+      resolve();
+    });
+
     request.on('error', (err) => {
       res.status(500).json({ error: 'Koneksi ke Google gagal: ' + err.message });
       resolve();
@@ -58,3 +64,5 @@ module.exports = async function handler(req, res) {
     request.end();
   });
 };
+
+    
