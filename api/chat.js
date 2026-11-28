@@ -17,7 +17,7 @@ module.exports = async function handler(req, res) {
   });
 
   const options = {
-    hostname: '://googleapis.com',
+    hostname: 'generativelanguage.googleapis.com',
     path: `/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(apiKey.trim())}`,
     method: 'POST',
     headers: {
