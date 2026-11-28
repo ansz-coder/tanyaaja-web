@@ -35,8 +35,7 @@
     </div>
 
     <script>
-        // MASUKKAN API KEY ANDA DI SINI
-        const API_KEY = "AQ.Ab8RN6I4ZOUSMq0Bf5ORxLcXfpqbol25cysmxeYQr1EQR3anUA";
+        
 
         window.addEventListener('load', async () => {
             await Clerk.load();
@@ -68,24 +67,18 @@
             chatWindow.appendChild(aiDiv);
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: text }] }]
-                    })
-                });
+                try {
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text })
+        });
 
-                const data = await response.json();
-                const aiResponse = data.candidates[0].content.parts[0].text;
-                aiDiv.innerText = aiResponse;
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Gagal terhubung');
 
-            } catch (error) {
-                aiDiv.innerText = "Maaf Partner, sepertinya ada gangguan koneksi ke otak AI. Coba lagi nanti ya!";
-            }
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-    </script>
-</body>
-</html>
+        aiDiv.innerText = data.reply;
+    } catch (error) {
+        aiDiv.innerText = "Maaf Partner, gangguan koneksi: " + error.message;
+    }
+    chatWindow.scrollTop = chatWindow.scrollHeight;
